@@ -1,0 +1,106 @@
+<html>
+    <!--描述网页信息-->
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>title</title>
+        <style>
+            *{
+                font-size: 50px;
+            }
+        
+            .btn{height:80px; width:80%; padding: 0px 30px; background-color: #0071E7; border: solid 1px #0071E7; border-radius:5px; font-size: 1em; color: white}
+        </style>
+        <!--<<script src="./lib/rollup/aes.js"></script>
+		<script src="./lib/component/aes.js"></script>
+		<script src="./lib/component/mode-ecb.js"></script>
+		script src="./lib/component/pad-nopadding.js"></script>-->
+		<script src="./scrypt.js"></script>
+		<script src="./neo-ts.js"></script>
+        <script>
+            
+        
+            //OC调用JS的方法列表
+            /*function alertMobile() {
+                document.getElementById('mobile').innerHTML = '不带参数'
+            }
+
+            function alertName(msg) {
+                //有一个参数
+                document.getElementById('name').innerHTML = '有一个参数 :' + msg
+            }*/
+			
+		    function alertSign(content, wif){
+				var privateKey = ThinNeo.Helper.GetPrivateKeyFromWIF(wif);
+				var hexStr = content.hexToBytes();
+				var sign = ThinNeo.Helper.Sign(hexStr, privateKey);
+				var hexSign = sign.toHexString();
+				document.getElementById('msg').innerHTML = '有两个参数:<br/>' + content + '<br/>' + wif;
+				return hexSign;
+			}
+			
+			function alertVertify(content,sign, pub){
+				document.getElementById('ver').innerHTML = '有三个参数:<br/>' + content + '<br/>' + sign + '<br/>'+ pub;
+				return ThinNeo.Helper.VerifySignature(content.hexToBytes(), sign.hexToBytes(), pub.hexToBytes());
+			}
+        
+            //JS响应方法列表
+            /*function btnClick1() {
+                window.webkit.messageHandlers.showMobile.postMessage(null)
+            }
+
+            function btnClick2() {
+                window.webkit.messageHandlers.showName.postMessage('有一个参数')
+            }
+
+            function btnClick3() {
+                window.webkit.messageHandlers.showSign.postMessage(['两个参数One', '两个参数Two'])
+            }*/
+			
+			function btnClick3() {
+                window.webkit.messageHandlers.showSign.postMessage(['两个参数One', '两个参数Two'])
+            }
+			
+			function btnClick4() {
+                window.webkit.messageHandlers.showVertify.postMessage(['三个参数One', '三个参数Two', '三个参数THREE'])
+            }
+			
+        </script>
+        
+        
+    </head>
+
+    <!--网页具体内容-->
+    <body>
+        <br/>
+
+        <div>
+            <label>WKWebView&JS交互</label>
+        </div>
+        <br/>
+
+     <!--   <div id="mobile"></div>
+        <div>
+            <button class="btn" type="button" onclick="btnClick1()">不带参数</button>
+        </div>
+        <br/>
+        
+        <div id="name"></div>
+        <div>
+            <button class="btn" type="button" onclick="btnClick2()">一个参数</button>
+        </div>
+        <br/>-->
+        
+        <div id="msg"></div>
+        <div>
+            <button class="btn" type="button" onclick="btnClick3()">两个参数</button>
+        </div>
+		<br/>
+		<div id="ver"></div>
+        <div>
+            <button class="btn" type="button" onclick="btnClick4()">三个参数</button>
+        </div>
+		
+
+
+    </body>
+</html>

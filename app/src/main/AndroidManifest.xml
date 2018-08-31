@@ -125,6 +125,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.main.LogActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.test.TestActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.main.WebViewActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.vpn.RegisteVpnActivity"
